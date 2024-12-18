@@ -150,7 +150,8 @@ require("chainsaw").clearLog()
 
 ---------------------------------------------------
 
--- remove all log statements created by nvim-chainsaw
+-- remove all log statements or all log statements in visually selected region 
+-- created by nvim-chainsaw 
 require("chainsaw").removeLogs()
 
 -- remove all log statements within visually selected region by nvim-chainsaw
@@ -163,7 +164,8 @@ variableLog` is same as `:lua require("chainsaw").variableLog()`.
 
 When using lua functions, `variableLog`, `objectLog`, `typeLog`, and `assertLog`
 can also be used in **visual mode** to use the visual selection instead of the
-word under the cursor.
+word under the cursor. `removeLogs` can also be used in visual mode to only
+remove log statements inside the selected lines.
 
 ### Smart variable detection
 When the variable under the cursor is an object with fields, `chainsaw` attempts
@@ -230,9 +232,7 @@ require("chainsaw").setup {
 
 	-- Appearance of lines with the marker
 	visuals = {
-		sign = "󰹈",
-		statuslineIcon = "󰹈",
-		notificationIcon = "󰹈",
+		icon = "󰹈", -- as opposed to marker only used in nvim, thus nerdfont icons are okay
 		signHlgroup = "DiagnosticSignInfo",
 		lineHlgroup = false,
 

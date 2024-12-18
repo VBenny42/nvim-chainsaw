@@ -10,9 +10,7 @@ local defaultConfig = {
 
 	-- Appearance of lines with the marker
 	visuals = {
-		sign = "󰹈",
-		statuslineIcon = "󰹈",
-		notificationIcon = "󰹈",
+		icon = "󰹈", -- as opposed to marker only used in nvim, thus nerdfont icons are okay
 		signHlgroup = "DiagnosticSignInfo",
 		lineHlgroup = false,
 
@@ -35,7 +33,7 @@ local defaultConfig = {
 		-- Will insert the marker as `%s`. (Pre-commit hooks requires a shebang
 		-- and exit non-zero when marker is found to block the commit.)
 		hookContent = [[#!/bin/sh
-			if git grep --fixed-strings --line-number "🪚" .; then
+			if git grep --fixed-strings --line-number "%s" .; then
 				echo
 				echo "nvim-chainsaw marker found. Aborting commit."
 				exit 1
@@ -113,6 +111,10 @@ function M.setup(userConfig)
 		warn(msg)
 	end
 	if M.config.loglines then warn("Config `loglines` is deprecated. Use `visuals` instead.") end
+	-- DEPRECATION (2024-12-18)
+	if M.config.visuals.sign then
+		warn("Config `visuals.sign` is deprecated. Use `visuals.icon` instead.")
+	end
 	---@diagnostic enable: undefined-field
 
 	-- VALIDATE
